@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASAM - Fire & Security Alarm System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="header">
+        <h1>🔥 FASAM - Fire & Security Alarm Monitor</h1>
+        <div class="header-controls">
+            <span class="status-badge" id="staffingStatus">MANNED</span>
+            <button class="btn btn-small" id="toggleStaffingBtn">Toggle Manned</button>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-item">
+            <span class="stat-num" id="activeAlarmsCount">0</span>
+            <span class="stat-label">Activated</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="confirmedAlarmsCount">0</span>
+            <span class="stat-label">Confirmed</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="zonesAffected">0</span>
+            <span class="stat-label">Zones</span>
+        </div>
+    </div>
+
+    <!-- Audible Alarm Visual Indicator-->
+    <div class="audible-alarm-container" id="audibleAlarmContainer" style="display: none;">
+        <div class="audible-alarm">
+            <span class="speaker-icon">🔊</span>
+            <span class="alarm-text">EVACUATION ALARM SOUNDING - LEAVE BUILDING IMMEDIATELY</span>
+            <span class="speaker-icon">🔊</span>
+        </div>
+    </div>
+
+    <div class="two-columns">
+        <div class="left-column">
+            <div class="card">
+                <div class="card-header">ACTIVE ALARMS</div>
+                <div class="card-content">
+                    <div id="alarmList" class="alarm-container">No active alarms</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <!-- Building Zones -->
+            <div class="card">
+                <div class="card-header">BUILDING ZONES</div>
+                <div class="card-content">
+                    <div id="zonesList" class="zones-container"></div>
+                </div>
+            </div>
+
+            <!-- System Responses -->
+            <div class="card">
+                <div class="card-header">SYSTEM RESPONSES</div>
+                <div class="card-content" id="responsesPanel"></div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="card">
+                <div class="card-header">CONTROL PANEL</div>
+                <div class="card-content">
+                    <div class="button-group">
+                        <select id="zoneSelect" class="zone-select">
+                            <option value="1">Zone A1 - East Wing</option>
+                            <option value="2">Zone A2 - West Wing</option>
+                            <option value="3">Zone B1 - Security Area</option>
+                            <option value="4">Zone B2 - Main Hall</option>
+                            <option value="5">Zone C1 - Server Room</option>
+                        </select>
+                    </div>
+                    <div class="button-group" style="margin-top: 8px;">
+                        <button class="btn btn-danger" id="simulateFireZoneBtn">Fire Alarm in Selected Zone</button>
+                        <button class="btn btn-warning" id="simulateSecurityZoneBtn">Security Alarm in Selected Zone</button>
+                    </div>
+                    <div class="button-group" style="margin-top: 8px;">
+                        <button class="btn btn-success" id="resetSystemBtn">Reset All Alarms</button>
+                        <button class="btn btn-info" id="clearLogBtn">Clear Log</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Log -->
+            <div class="card">
+                <div class="card-header">EVENT LOG</div>
+                <div class="card-content">
+                    <div class="log" id="eventLog"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
