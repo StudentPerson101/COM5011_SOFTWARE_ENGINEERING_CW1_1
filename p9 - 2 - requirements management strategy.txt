@@ -1,0 +1,136 @@
+2. Requirements Management Strategy
+
+Requirements management should control the requirements from elicitation through maintenance, while preserving traceability and handling change in a disciplined way.
+2.1 Establish a requirements baseline
+
+After validation, create a requirements baseline containing:
+ - unique IDs for each requirement
+ - requirement text
+ - rationale
+ - source
+ - priority
+ - verification method
+ - status
+ - owner
+ - linked hazards/design elements/test cases
+
+The current FR and NFR numbering already provides a good starting point.
+2.2 Use a version-controlled requirements repository
+
+Store requirements in a controlled repository, not in ad hoc documents. Each requirement should include metadata such as:
+ - ID: e.g., FR7, NFR4
+ - title
+ - category: functional, non-functional, safety, security, interface, operational
+ - source: scenario, stakeholder, regulation, safety analysis
+ - rationale
+ - version
+ - change history
+ - verification method: review, test, inspection, simulation
+ - trace links
+
+This allows controlled evolution across the development lifecycle.
+2.3 Change management process
+
+All changes should be handled through a formal change control process.
+Change workflow
+
+ 1) Raise change request
+    A stakeholder proposes a new requirement, deletion, or modification.
+
+ 2) Log the request
+    Record the reason, originator, affected requirement IDs, and urgency.
+
+ 3) Impact analysis
+    Assess effects on:
+ - safety
+ - security
+ - architecture
+ - interfaces
+ - implementation effort
+ - cost/schedule
+ - test cases
+ - regulatory or operational compliance
+
+ 1) Review and approval
+    A change control board or designated authority reviews the impact.
+
+ 2) Update artifacts
+    If approved, update the requirement, trace links, design documents, and tests.
+
+ 3) Re-baseline if necessary
+    For significant changes, issue a new approved baseline.
+
+For FASAM, this is essential because apparently small changes, such as altering confirmation rules or door-locking behavior, can have major safety consequences.
+2.4 Traceability strategy
+
+Traceability should be maintained in both directions.
+Forward traceability
+
+Trace from:
+ - scenario statements
+ - stakeholder concerns
+ - hazards
+ - requirements
+ - architecture/design components
+ - implementation units
+ - integration tests
+ - acceptance tests
+
+Backward traceability
+
+Trace from:
+ - test failures
+ - design elements
+ - code modules
+ - change requests
+
+back to the requirement that justified them.
+Example trace chain
+
+A practical example:
+ - Scenario: “If the control area is unmanned and an alarm is activated, this alarm should not be ignored if it is potentially serious.”
+ - Requirement: FR7, FR16, NFR2
+ - Design elements: control area status service, escalation rules engine, emergency notification service
+ - Test cases: unmanned control area + confirmed serious fire; unmanned control area + serious security event
+ - Audit evidence: event logs showing automated escalation
+
+This traceability ensures every implemented feature has justification and every requirement is realized and verified.
+2.5 Configuration and status tracking
+
+Each requirement should have a lifecycle state, for example:
+ - proposed
+ - under review
+ - approved
+ - baselined
+ - implemented
+ - verified
+ - changed
+ - retired
+
+This helps teams know what is stable enough for design and what is still evolving.
+2.6 Prioritization approach
+
+Requirements should be prioritized because safety- and mission-critical items must be stabilized first.
+
+Suggested priority groups:
+ - Priority 1: safety-critical
+    fire detection, emergency escalation, evacuation, human-presence inhibition for suppression/shutdown, event logging
+ - Priority 2: security-critical
+    security alarm response, locking, zone isolation
+ - Priority 3: operational/supporting
+    operator UI refinement, configuration extensibility, maintainability improvements
+
+This supports incremental delivery while protecting core safety obligations.
+2.7 Verification linkage
+
+Requirements management should ensure every requirement has a planned verification method.
+
+Examples:
+ - Review: wording, policy consistency
+ - Inspection: configuration structures, logs, access control
+ - Test: alarm response timing, door locking, evacuation indicators
+ - Simulation: complex event combinations, false alarms, sensor failure
+ - Demonstration: operator workflow in the control room
+
+A requirement that cannot be assigned a verification method should be revised.
+

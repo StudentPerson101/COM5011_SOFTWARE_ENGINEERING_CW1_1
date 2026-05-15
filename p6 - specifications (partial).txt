@@ -1,0 +1,87 @@
+3. Partial Specification
+
+
+3.1 System Overview
+FASAM is a centralized monitoring and control system for a large building divided into zones. It receives input from fire and security sensors, evaluates alarm conditions, displays them to a manned control area, and triggers automatic responses such as emergency notification, evacuation assistance, door locking, sprinkler activation, and equipment shutdown.
+
+3.2 Main Entities
+- Zone: A defined area of the building containing multiple alarms and devices.
+- Alarm Sensor: A fire or security sensor assigned to a zone.
+- Control Area: Central manned monitoring point for receiving and handling alarms.
+- Emergency Services Interface: Mechanism for automatic or manual contact with external emergency responders.
+- Actuators: Sprinklers, electrical shutdown systems, direction indicators, audible alarms, and door locks.
+- Occupancy Detector: Device or subsystem used to determine whether people are present in a room.
+
+3.3 Core Functional Behavior
+A. Fire Alarm Processing
+    1) A fire sensor activation is received.
+    2) The system identifies the associated zone.
+    3) The system records the event and sends an alert to the control area.
+    4) If confirmation is required, the system waits for additional corroborating input, such as multiple sensors in the same area.
+    5) Once the fire alarm is confirmed:
+        - evacuation indicators are activated;
+        - audible evacuation alarms are activated;
+        - emergency services are notified, either automatically or by the operator, depending on staffing and policy;
+        - sprinklers and electrical shutdown are activated if installed and if no people are detected in the same room.
+
+B. Security Alarm Processing
+    1) A security sensor activation is received.
+    2) The system identifies the associated zone.
+    3) The system records the event and sends an alert to the control area.
+    4) According to configured rules, the system may:
+        - lock specified internal doors;
+        - isolate the affected zone by automatic door locking.
+
+C. Unmanned Control Area Handling
+    1) The system monitors the staffing status of the control area.
+    2) If a potentially serious alarm occurs while the control area is unmanned, the system bypasses reliance on human response and automatically alerts emergency services.
+
+3.4 Example Decision Rules
+- Rule 1: If one fire sensor activates, mark the event as “fire suspected.”
+- Rule 2: If multiple fire sensors in the same zone activate, mark the event as “fire confirmed.”
+- Rule 3: If fire is confirmed, start evacuation guidance and sound alarms.
+- Rule 4: If fire is confirmed and no people are present in the room, enable sprinklers and equipment shutdown.
+- Rule 5: If a serious alarm occurs while the control area is unmanned, notify emergency services automatically.
+- Rule 6: If a security alarm is confirmed, lock configured doors and isolate the affected zone if required.
+
+3.5 Inputs
+- Fire sensor signals
+- Security sensor signals
+- Zone configuration data
+- Occupancy detection status
+- Control area staffing status
+- Manual operator commands
+
+3.6 Outputs
+- Alarm displays in control area
+- Notifications to emergency services
+- Sprinkler activation commands
+- Electrical shutdown commands
+- Exit route indicator activation
+- Audible evacuation alarms
+- Door lock/isolation commands
+- Event logs
+
+3.7 Constraints and Assumptions
+- Not every room or zone necessarily has sprinklers, shutdown systems, or direction indicators.
+- Alarm confirmation policies may vary by installation.
+- False alarms are expected, so the design must support configurable confirmation thresholds.
+- Occupancy detection must be sufficiently accurate for safety-critical decisions.
+
+
+
+
+4. Compact Specification Statement
+
+The FASAM shall monitor fire and security sensors across all building zones, report alarms to a central control area, and coordinate automatic and manual responses. For confirmed fire alarms, it shall support evacuation alerts, route guidance, emergency escalation, and safe activation of suppression or shutdown systems. For security alarms, it shall support automatic locking of internal doors and zone isolation. The system shall remain reliable, safe, available, and resistant to false alarms through configurable confirmation logic. 
+
+
+
+
+
+
+
+
+
+
+

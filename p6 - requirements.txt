@@ -1,0 +1,94 @@
+FR - Functional Requirements
+NFR - Non-Functional Requirements
+
+
+1. Functional Requirements:
+
+1.1 Alarm Monitoring
+- FR1 -- The system shall monitor fire alarms and security alarms throughout the building.
+- FR2 -- The system shall organize the building into zones and maintain the association between each alarm device and its zone.
+- FR3 -- The system shall report alarm activations to a central control area.
+
+1.2 Fire Alarm Handling
+- FR4 -- The system shall detect and record fire alarm activations from one or more fire sensors.
+- FR5 -- The system shall support alarm confirmation logic before escalation to emergency services, where configured. Confirmation may be based on multiple sensors detecting the same problem.
+- FR6 -- If a fire alarm is confirmed, the system shall alert the central control area.
+- FR7. If the control area is unmanned and a potentially serious alarm is activated, the system shall automatically notify emergency services.
+- FR8 -- If a fire alarm is confirmed, the system shall activate sprinkler systems where installed, unless people are detected in the same room.
+- FR9 -- If a fire alarm is confirmed, the system shall shut down electrical equipment where such shutdown systems are installed, unless people are detected in the same room.
+- FR10 -- If a fire alarm is confirmed, the system shall activate illuminated direction indicators showing the nearest exit route.
+- FR11 -- If a fire alarm is confirmed, the system shall activate an audible evacuation signal to instruct occupants to leave the building.
+
+1.3 Security Alarm Handling
+- FR12 -- The system shall detect and record security alarm activations.
+- FR13 -- The system shall alert the central control area when a security alarm is activated.
+- FR14 -- The system shall automatically lock selected internal doors when a security alarm condition requires containment.
+- FR15 -- The system shall support automatic isolation of complete zones through door locking.
+
+1.4 Control and Supervision
+- FR16 -- The system shall determine whether the central control area is manned or unmanned. This state shall influence escalation behavior for serious alarms.
+- FR17 -- The system shall allow operators in the control area to review alarms and pass them on to emergency services or respond personally.
+- FR18 -- The system shall maintain an event log of alarm activations, confirmations, notifications, and actuator actions.
+- FR19 -- The system shall distinguish between fire alarms and security alarms and apply the appropriate response rules.
+
+
+
+2. Non-Functional Requirements
+
+2.1 Reliability
+- NFR1 -- The system shall operate continuously and reliably because it is safety- and security-critical.
+- NFR2 -- The system shall not ignore potentially serious alarms, especially when the control area is unmanned.
+- NFR3 -- The system should tolerate individual sensor faults where possible and rely on confirmation logic to reduce false alarms.
+
+2.2 Safety
+- NFR4 -- The system shall prioritize human safety over property protection; automated fire suppression or power shutdown shall not occur if people are in the same room.
+- NFR5 -- Evacuation guidance and audible alerts shall be clear and unambiguous when a fire alarm is confirmed.
+
+2.3 Performance
+- NFR6 -- The system shall respond to alarm events within an operationally acceptable time, so that notifications, evacuation signals, and containment actions are not delayed.
+- NFR7 -- Automatic escalation to emergency services shall occur promptly when required.
+
+2.4 Availability
+- NFR8 -- The system should remain available at all times, including outside staffed hours.
+
+2.5 Usability
+- NFR9 -- The control area interface shall clearly present alarm type, zone, severity, confirmation status, and recommended action.
+- NFR10 -- Operators shall be able to understand and act on alarms with minimal delay.
+
+2.6 Maintainability
+- NFR11 -- The system shall be modular so that sensors, zones, doors, sprinklers, and indicators can be configured or extended.
+- NFR12 -- Event logs and configuration data shall be maintainable and auditable.
+
+2.7 Security
+- NFR13 -- Only authorized personnel shall be able to configure zones, alarm rules, and actuator behavior.
+- NFR14 -- The system shall protect alarm records and control commands from unauthorized modification.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,208 @@
+U1 — Monitor Alarm Events
+Primary actor: System Operator
+Goal: Observe incoming fire and security alarm events from all building zones.
+Preconditions: FASAM is running and connected to sensors.
+Main flow:
+  1) System receives event data from sensors.
+  2) Event appears on operator display.
+  3) Operator reviews zone, alarm type, and current status.
+     Postconditions: Alarm event is visible for action or follow-up.
+
+U2 — Acknowledge Alarm
+Primary actor: System Operator
+Goal: Mark an alarm as seen and being handled.
+Preconditions: An alarm event exists.
+Main flow:
+  1) Operator selects an alarm.
+  2) System records acknowledgment time and operator identity.
+Postconditions: Alarm is marked as acknowledged.
+
+U3 — Assess Alarm Severity
+Primary actor: System Operator
+Goal: Determine whether the alarm is potentially serious.
+Preconditions: Alarm has been raised.
+Main flow:
+  1) Operator checks alarm type, affected zone, and corroborating inputs.
+  2) Operator judges severity using system information.
+Postconditions: Alarm is classified for manual or emergency response.
+
+U4 — Confirm Fire Alarm
+Primary actor: System Operator / FASAM
+Goal: Establish that a fire condition is genuine before escalation and response.
+Preconditions: A fire-related alarm condition has been detected.
+Main flow:
+  1) System or operator reviews evidence.
+  2) Multiple sensor detections or manual confirmation validate the fire.
+  3) Alarm state changes to confirmed fire.
+Postconditions: Fire-response actions may proceed.
+
+U5 — Confirm Security Alarm
+Primary actor: System Operator / FASAM
+Goal: Establish that a security alarm condition is valid.
+Preconditions: A security-related alarm condition has been detected.
+Main flow:
+  1) System or operator reviews the triggering event.
+  2) Alarm state changes to confirmed security incident if valid.
+Postconditions: Security-response actions may proceed.
+
+U6 — Correlate Multiple Sensor Signals
+Primary actor: FASAM
+Goal: Use multiple sensor activations to support confirmation of a fire event.
+Preconditions: One or more sensors have triggered.
+Main flow:
+  1) System collects signals from detectors in the same or related zones.
+  2) System compares time, type, and location of triggers.
+  3) If correlation threshold is met, confirmation evidence is produced.
+Postconditions: Fire confirmation decision is supported.
+
+U7 — Notify Fire Services
+Primary actor: System Operator / Fire Services
+Goal: Pass a confirmed or serious fire incident to fire responders.
+Preconditions: Fire alarm has been confirmed or judged sufficiently serious.
+Main flow:
+  1) Operator or system compiles incident details.
+  2) Notification is sent to fire services.
+  3) Fire services receive zone and status details.
+Postconditions: External fire response is initiated.
+
+U8 — Notify Security Services
+Primary actor: System Operator / Security Services
+Goal: Pass a confirmed security incident to security responders.
+Preconditions: Security alarm has been confirmed or judged actionable.
+Main flow:
+  1) Operator or system compiles incident details.
+  2) Notification is sent to security services.
+  3) Security services receive zone and status details.
+Postconditions: Security response is initiated.
+
+U9 — Notify Emergency Services Automatically
+Primary actor: FASAM
+Goal: Automatically call emergency services when the control area is unmanned and the alarm is potentially serious.
+Preconditions: Serious alarm detected and control area unmanned.
+Main flow:
+  1) System detects unmanned control state.
+  2) System determines alarm meets seriousness threshold.
+  3) System automatically contacts emergency services.
+Postconditions: Emergency services are notified without operator intervention.
+
+U10 — View Affected Zone
+Primary actor: System Operator / Fire Services / Security Services
+Goal: Identify the building zone linked to the alarm.
+Preconditions: Alarm exists.
+Main flow:
+ 1) Actor opens incident details.
+ 2) System displays zone and associated alarms/devices.
+Postconditions: Actor knows where the incident is located.
+
+U11 — View Alarm Confirmation Status
+Primary actor: System Operator / Fire Services
+Goal: Check whether an alarm is unconfirmed, suspected, or confirmed.
+Preconditions: Alarm exists.
+Main flow:
+ 1) Actor selects the incident.
+ 2) System shows current confirmation state and basis.
+Postconditions: Actor understands confidence level of the alarm.
+
+U12 — Activate Evacuation Indicators
+Primary actor: System Operator / FASAM
+Goal: Illuminate directional indicators showing the nearest exit route.
+Preconditions: Fire alarm has been confirmed.
+Main flow:
+  1) System determines affected evacuation routes.
+  2) Exit indicators are activated.
+Postconditions: Occupants are visually guided to exits.
+
+U13 — Activate Audible Evacuation Alarm
+Primary actor: System Operator / FASAM
+Goal: Sound an audible warning telling occupiers to leave the building.
+Preconditions: Fire alarm has been confirmed.
+Main flow:
+  1) System activates the audible evacuation signal.
+Postconditions: Occupants are audibly warned to evacuate.
+
+U14 — Check Human Presence in Room
+Primary actor: FASAM
+Goal: Prevent unsafe suppression/shutdown actions when people are present in the same room.
+Preconditions: Confirmed fire and candidate suppression/shutdown action.
+Main flow:
+  1) System checks occupancy or presence indicators for the room.
+  2) Presence status is returned to the decision logic.
+Postconditions: Safety constraint is known.
+
+U15 — Activate Sprinklers
+Primary actor: System Operator / FASAM / Sprinkler System
+Goal: Start sprinkler suppression in response to a confirmed fire where safe.
+Preconditions: Fire alarm confirmed; sprinkler-equipped area; no people in the same room.
+Main flow:
+  1) System checks whether sprinklers are available.
+  2) System checks human presence.
+  3) Sprinklers are activated if safe.
+Alternative: If people are present, activation is inhibited.
+Postconditions: Fire suppression is started or safely withheld.
+
+U16 — Shut Down Electrical Equipment
+Primary actor: System Operator / FASAM / Electrical Shutdown System
+Goal: Shut down electrical equipment in response to a confirmed fire where safe.
+Preconditions: Fire alarm confirmed; shutdown-capable area; no people in the same room.
+Main flow:
+  1) System checks whether controlled equipment exists in the room/zone.
+  2) System checks human presence.
+  3) Electrical shutdown is triggered if safe.
+Alternative: If people are present, shutdown is inhibited.
+Postconditions: Equipment is powered down or safely left running.
+
+U17 — Lock Internal Doors
+Primary actor: System Operator / FASAM / Door Control System
+Goal: Automatically secure internal doors as part of a security response.
+Preconditions: Security alarm confirmed or operator initiates lockdown.
+Main flow:
+  1) System identifies doors linked to the affected area.
+  2) Lock command is issued.
+Postconditions: Selected internal doors are locked.
+
+U18 — Isolate Zone
+Primary actor: System Operator / FASAM / Door Control System
+Goal: Secure a whole zone by coordinated automatic door locking.
+Preconditions: Security alarm confirmed or zone isolation requested.
+Main flow:
+  1) System identifies all boundary doors for the zone.
+  2) Lock commands are issued to isolate the zone.
+Postconditions: Zone is isolated from the rest of the building.
+
+U19 — Unlock / Restore Access
+Primary actor: System Operator / Security Services / Door Control System
+Goal: Return locked doors or isolated zones to normal access state.
+Preconditions: Incident controlled or access restoration approved.
+Main flow:
+  1) Actor selects restore-access function.
+  2) System unlocks relevant doors.
+Postconditions: Normal access is restored.
+
+U20 — Reset Alarm / Restore System
+Primary actor: System Operator
+Goal: Return the system to normal operation after incident handling.
+Preconditions: Incident is resolved and restoration is authorized.
+Main flow:
+  1) Operator resets alarm state.
+  2) System clears active alerts and records closure.
+  3) Controlled subsystems are restored as appropriate.
+Postconditions: System returns to standby monitoring mode.
+
+U21 — Detect Alarm Condition
+Primary actor: Alarm Sensor
+Goal: Detect smoke, heat, intrusion, or other monitored conditions.
+Preconditions: Sensors are operational.
+Main flow:
+  1) Sensor detects abnormal condition.
+  2) Sensor sends signal to FASAM.
+  3) System creates an alarm event.
+Postconditions: Alarm event enters monitoring/confirmation workflow.
+
+
+
+
+
+
+
+
+

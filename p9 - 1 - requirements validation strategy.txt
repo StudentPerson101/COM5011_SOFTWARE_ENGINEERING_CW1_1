@@ -1,0 +1,125 @@
+1. Requirements Validation Strategy
+The aim of validation is to ensure the requirements are correct, complete, consistent, feasible, testable, and aligned with the operational needs of a safety- and security-critical system.
+
+1.1 Validation objectives
+The FASAM requirements should be validated against six core criteria:
+ - Correctness: the requirements reflect the scenario accurately.
+ - Completeness: all necessary alarm, control, evacuation, locking, logging, and escalation behaviors are covered.
+ - Consistency: no requirement conflicts with another, especially where fire and security responses overlap.
+ - Feasibility: each requirement can be implemented with available sensors, control logic, actuators, and interfaces.
+ - Verifiability: each requirement can be tested, inspected, reviewed, or demonstrated.
+ - Safety suitability: requirements preserve life safety as the primary concern, particularly where suppression and shutdown actions are involved.
+
+1.2 Validation activities
+A. Structured requirements reviews
+Conduct formal stakeholder reviews with:
+ - fire safety specialists
+ - security managers
+ - building operations staff
+ - control room operators
+ - system engineers
+ - emergency response liaison personnel
+
+These reviews should check whether the requirements truly reflect operational practice. This is especially important for requirements involving:
+ - unmanned control area escalation
+ - confirmation rules for false alarms
+ - occupant detection before sprinkler/power shutdown
+ - security zone isolation through door locking
+ - operator decision-making support
+
+A checklist-based review should be used. For each FR/NFR, reviewers should ask:
+ - Is the requirement unambiguous?
+ - Is it necessary?
+ - Is it testable?
+ - Does it conflict with any other requirement?
+ - Does it assume missing domain information?
+
+B. Scenario-based validation
+Use event scenarios and walkthroughs derived from the problem statement to validate behavior. Examples:
+ 1) Single fire sensor triggered during staffed hours
+    Check whether the requirement set properly supports detection, possible confirmation, alerting the control area, and operator action.
+ 2) Multiple fire sensors confirm fire in an unmanned building zone
+    Check automatic emergency notification and evacuation-related actions.
+ 3) Confirmed fire in a sprinkler-equipped room with people present
+    Check that life safety overrides property protection and sprinklers/power shutdown do not activate.
+ 4) Security breach requiring containment
+    Check that selected doors lock and zone isolation occurs correctly.
+ 5) False alarm case
+    Check whether confirmation logic reduces unnecessary escalation while still not ignoring potentially serious alarms.
+
+Scenario walkthroughs are effective because this system is rule-driven and highly dependent on combinations of conditions.
+C. Prototyping and simulation
+
+A lightweight prototype or state-based simulation should be used for high-risk behaviors, such as:
+ - fire confirmation logic
+ - escalation when the control room is unmanned
+ - door-locking logic for zone isolation
+ - suppression/shutdown inhibition when occupants are present
+ - simultaneous fire and security events
+
+This helps expose hidden assumptions and race conditions early.
+D. Consistency and conflict analysis
+
+A requirements analyst should explicitly inspect the set for conflicts such as:
+ - fire evacuation versus security door locking
+ - suppression activation versus occupant presence
+ - operator discretion versus automatic escalation
+ - confirmation delay versus prompt emergency response
+
+For example, in a combined emergency, fire safety must dominate security containment logic. That principle should be made explicit in the specification because it is implied by the scenario and NFR4, but not fully operationalized in the current FR set.
+E. Testability analysis
+
+Every requirement should have an acceptance criterion. For example:
+ - FR7: define what counts as a “potentially serious alarm.”
+ - FR16: define how the system determines whether the control area is manned.
+ - NFR6 and NFR7: define measurable timing thresholds for “operationally acceptable time” and “promptly.”
+
+At present, several requirements are valid at a high level but need measurable refinements before implementation and test design.
+F. Hazard and risk-based validation
+
+Because FASAM is safety-critical, validation should include hazard-oriented analysis such as:
+ - missed serious alarm
+ - delayed emergency notification
+ - incorrect suppression activation
+ - unsafe door locking during evacuation
+ - faulty occupancy detection
+ - sensor disagreement or sensor failure
+
+A hazard analysis should be used to confirm that the requirements mitigate the most serious operational risks.
+1.3 Likely validation issues in the current requirements
+
+The supplied requirements are broadly sound, but several areas need refinement before baselining.
+Ambiguities
+ - “Potentially serious alarm” in FR7/NFR2 is not operationally defined.
+ - “Manned or unmanned” in FR16 needs a detection rule.
+ - “People are detected in the same room” in FR8 and FR9 assumes an occupancy detection mechanism that is not explicitly required.
+ - “Operationally acceptable time” in NFR6 is too vague for testing.
+ - “Promptly” in NFR7 needs a concrete response-time target.
+
+Missing or under-specified requirements
+The set would benefit from adding requirements for:
+ - occupancy detection capability and confidence/failure behavior
+ - priority rules when fire and security requirements conflict
+ - degraded-mode behavior when key sensors or communications fail
+ - manual override rules for authorized operators
+ - audit trail retention and access policies
+ - emergency services communication channel failure handling
+ - fail-safe door behavior during fire alarms
+
+Potential conflicts
+ - Automatic locking for security containment may obstruct evacuation unless explicitly overridden by fire response rules.
+ - Confirmation logic reduces false alarms, but must not create unsafe delay in serious cases.
+
+1.4 Validation outputs
+The validation process should produce:
+ - reviewed and approved requirements
+ - a defect list for ambiguous/incomplete/conflicting requirements
+ - updated requirements with clarified acceptance criteria
+ - scenario validation records
+ - a traceability matrix linking scenario statements to FRs/NFRs and later to design/tests
+ - a formal requirements baseline for development
+
+
+
+
+
